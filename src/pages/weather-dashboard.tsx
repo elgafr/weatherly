@@ -1,7 +1,10 @@
-import { API_CONFIG } from "@/api/config";
+import CurrentWeather from "@/components/current-weather";
+import HourlyTemperature from "@/components/hourly-temperature";
 import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import WeatherDetails from "@/components/weather-details";
+import WeatherForecast from "@/components/weather-forecast";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import {
   useForecastQuery,
@@ -21,8 +24,6 @@ const weatherDashboard = () => {
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const locationQuery = useReverseGeocodeQuery(coordinates);
-
-  console.log(weatherQuery.data);
 
   const handleRefresh = () => {
     getLocation();
@@ -109,19 +110,19 @@ const weatherDashboard = () => {
           />
         </Button>
       </div>
-      {/* current and hourly weather */}
 
-      <div>
-        <div>
-          {/* current weather */}
-          {/* hourly weather */}
-
-
+      <div className="grid gap-6">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <CurrentWeather
+            data={weatherQuery.data}
+            locationName={locationName}
+          />
+          <HourlyTemperature data={forecastQuery.data} />
         </div>
 
-        <div>
-          {/* details */}
-          {/* forecast */}
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+          <WeatherDetails data={weatherQuery.data} />
+          <WeatherForecast data = {forecastQuery.data} />
         </div>
       </div>
     </div>
