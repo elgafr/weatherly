@@ -1,4 +1,5 @@
 import CurrentWeather from "@/components/current-weather";
+import FavoriteCities from "@/components/favorite-cities";
 import HourlyTemperature from "@/components/hourly-temperature";
 import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -13,7 +14,7 @@ import {
 } from "@/hooks/use-weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react";
 
-const weatherDashboard = () => {
+const WeatherDashboard = () => {
   const {
     coordinates,
     error: locationError,
@@ -93,7 +94,7 @@ const weatherDashboard = () => {
 
   return (
     <div className="space-y-4">
-      {/* FAVORITE CITIES */}
+      <FavoriteCities />
 
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
@@ -129,4 +130,4 @@ const weatherDashboard = () => {
   );
 };
 
-export default weatherDashboard;
+export default WeatherDashboard;
