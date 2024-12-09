@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalStorage } from "./use-local-storage";
+import { useEffect } from "react";
 
 interface FavoriteCity {
     id: string;
@@ -18,6 +19,12 @@ export function useFavorite() {
     )
 
     const queryClient = useQueryClient()
+
+    useEffect(() => {
+        if (favorites.length) {
+            queryClient.setQueryData(["favorites"], favorites);
+        }
+    }, [favorites, queryClient]);
 
     const favoritesQuery = useQuery({
         queryKey: ["favorites"],
@@ -41,6 +48,7 @@ export function useFavorite() {
             const newFavorites = [...favorites, newFavorite].slice(0, 10)
 
             setFavorites(newFavorites)
+            queryClient.setQueryData(["favorites"], newFavorites);
             return newFavorites
         },
         onSuccess: () => {
@@ -53,6 +61,7 @@ export function useFavorite() {
         mutationFn: async (cityId: string) => {
             const newFavorites = favorites.filter((city) => city.id !== cityId)
             setFavorites(newFavorites)
+            
             return newFavorites
         },
 
