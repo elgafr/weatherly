@@ -11,9 +11,14 @@ const Header = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to={"/"}>
           <img
-            src={isDark ? "logo-weatherly.png" : "logo-weatherly.png"}
+            src={isDark ? "logo-weatherly-dark.png" : "logo-weatherly-light.png"}
             alt="Weatherly Logo"
-            className="h-14"
+            className="h-14 sm:block hidden"
+          />
+          <img
+            src="icon-weatherly.png"
+            alt="Weatherly Icon"
+            className="h-10 sm:hidden"
           />
         </Link>
 
